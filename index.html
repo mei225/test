@@ -9,13 +9,16 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
-        .day-cell { min-height: 120px; transition: all 0.2s; }
+        .day-cell { min-height: 120px; transition: all 0.2s; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
         .day-cell:hover { background-color: #f1f5f9; }
         .event-badge { font-size: 0.7rem; padding: 2px 4px; border-radius: 4px; margin-bottom: 2px; }
+        
+        /* 팀별 색상 통일 */
         .team-a { background-color: #dbeafe; color: #1e40af; border-left: 3px solid #3b82f6; }
         .team-b { background-color: #fce7f3; color: #9d174d; border-left: 3px solid #ec4899; }
-        .practice { background-color: #f1f5f9; color: #475569; border-left: 3px solid #94a3b8; }
+        
         .gathering { background-color: #fef9c3; color: #854d0e; border-left: 3px solid #eab308; }
+        .note-badge { background-color: #fee2e2; color: #991b1b; font-size: 0.65rem; padding: 1px 3px; border-radius: 3px; margin-top: 2px; }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -24,12 +27,12 @@
         <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
             <div>
                 <h1 class="text-2xl font-bold">2026년 5월</h1>
-                <p class="text-slate-400 text-sm">A팀 & B팀 통합 일정표</p>
+                <p class="text-slate-400 text-sm">토요일 시간 조정 및 배우 지연 반영</p>
             </div>
             <div class="flex flex-wrap gap-4 text-xs justify-end">
-                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-blue-500 rounded-full"></span> A팀 공연</div>
-                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-pink-500 rounded-full"></span> B팀 공연</div>
-                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-yellow-400 rounded-full"></span> 시간 안내</div>
+                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-blue-500 rounded-full"></span> A팀 (공연/연습)</div>
+                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-pink-500 rounded-full"></span> B팀 (공연/연습)</div>
+                <div class="flex items-center gap-1"><span class="w-3 h-3 bg-yellow-400 rounded-full"></span> 확정 모임 시간</div>
             </div>
         </div>
 
@@ -50,32 +53,46 @@
         </div>
     </div>
 
+    <div class="max-w-5xl mx-auto mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 bg-blue-50 rounded-xl text-xs text-blue-800 leading-relaxed border border-blue-100">
+            <strong>🗓️ 공연 타임라인 안내</strong><br>
+            - 금요일(19:30): 16:30 모임 (사전 세팅 및 기술 점검)<br>
+            - 토요일(17:00): 13:30/13:00 모임 (런스루 리허설 진행)
+        </div>
+        <div class="p-4 bg-red-50 rounded-xl text-xs text-red-800 leading-relaxed border border-red-100">
+            <strong>⚠️ 지연 인원 대응 가이드 (9일, 23일)</strong><br>
+            - 소희, 경희 역 배우 지연 도착 예정<br>
+            - 13:30~합류 전: 무대 기술 점검 및 타 배역 동선 연습 우선 진행<br>
+            - 합류 즉시 분장 후 최종 런스루 1회 실시
+        </div>
+    </div>
+
     <script>
         const events = {
-            // 공연일
             perfA: [1, 9, 15, 23, 29],
             perfB: [2, 8, 16, 22, 30],
-            // 특정 시간 안내 (모임 텍스트 제외)
             specialTimes: {
-                1: "14:00",
-                2: "13:00"
+                1: "14:00", 
+                2: "13:00",
+                16: "13:00", // 요청사항 반영
+                30: "13:00"  // 요청사항 반영
+            },
+            notes: {
+                9: "소희/경희 지연",
+                23: "소희/경희 지연"
             }
         };
 
         const calendarBody = document.getElementById('calendar-body');
-        
-        // 2026년 5월 1일은 금요일 (요일 인덱스: 0=일, 5=금)
         const startDay = 5; 
         const daysInMonth = 31;
 
-        // 이전 달 빈 칸 채우기
         for (let i = 0; i < startDay; i++) {
             const emptyCell = document.createElement('div');
-            emptyCell.className = 'day-cell bg-slate-50/50 border-r border-b border-slate-100';
+            emptyCell.className = 'day-cell bg-slate-50/50';
             calendarBody.appendChild(emptyCell);
         }
 
-        // 날짜 생성
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(2026, 4, day);
             const dayOfWeek = date.getDay();
@@ -85,50 +102,66 @@
             if (dayOfWeek === 0) dayColorClass = "text-rose-500";
             if (dayOfWeek === 6) dayColorClass = "text-blue-500";
 
-            cell.className = `day-cell p-2 border-r border-b border-slate-100 flex flex-col gap-1`;
+            cell.className = `day-cell p-2 flex flex-col gap-1`;
             
             let html = `<span class="font-bold text-sm ${dayColorClass}">${day}</span>`;
             
             // 1. 공연 일정
+            const isPerfDay = events.perfA.includes(day) || events.perfB.includes(day);
             if (events.perfA.includes(day)) {
-                html += `<div class="event-badge team-a font-semibold">🎤 A팀 공연</div>`;
+                const time = (dayOfWeek === 5) ? "19:30" : "17:00";
+                html += `<div class="event-badge team-a font-bold">🎤 A팀 (${time})</div>`;
             }
             if (events.perfB.includes(day)) {
-                html += `<div class="event-badge team-b font-semibold">🎤 B팀 공연</div>`;
+                const time = (dayOfWeek === 5) ? "19:30" : "17:00";
+                html += `<div class="event-badge team-b font-bold">🎤 B팀 (${time})</div>`;
             }
 
-            // 2. 정기 연습 (수요일: B, 목요일: A)
+            // 2. 연습 일정
             if (dayOfWeek === 3) {
-                html += `<div class="event-badge practice text-[10px]">🏃 B팀 연습 (18:00)</div>`;
+                const fridayDate = day + 2;
+                if (events.perfB.includes(fridayDate)) {
+                    html += `<div class="event-badge team-a text-[10px] font-medium italic">🏃 A팀 연습 (18:00)</div>`;
+                } else {
+                    html += `<div class="event-badge team-b text-[10px] font-medium italic">🏃 B팀 연습 (18:00)</div>`;
+                }
             }
             if (dayOfWeek === 4) {
-                html += `<div class="event-badge practice text-[10px]">🏃 A팀 연습 (18:00)</div>`;
+                const nextDay = day + 1;
+                if (events.perfB.includes(nextDay)) {
+                    html += `<div class="event-badge team-b text-[10px] font-medium italic">🏃 B팀 연습 (18:00)</div>`;
+                } else {
+                    html += `<div class="event-badge team-a text-[10px] font-medium italic">🏃 A팀 연습 (18:00)</div>`;
+                }
             }
 
-            // 3. 시간 안내 (노란색 배지에서 '모임' 텍스트 제거)
+            // 3. 모임 시간 안내
             if (events.specialTimes[day]) {
-                html += `<div class="event-badge gathering text-[10px] font-medium text-center">📍 ${events.specialTimes[day]}</div>`;
+                html += `<div class="event-badge gathering text-[10px] font-bold text-center">📍 ${events.specialTimes[day]}</div>`;
             } else {
-                // 매주 토요일 13:00
                 if (dayOfWeek === 6) {
-                    html += `<div class="event-badge gathering text-[10px] font-medium text-center">📍 13:00</div>`;
+                    html += `<div class="event-badge gathering text-[10px] font-bold text-center">📍 13:30</div>`;
                 }
-                // 금요일(1일 제외) 18:00
                 if (dayOfWeek === 5 && day !== 1) {
-                    html += `<div class="event-badge gathering text-[10px] font-medium text-center">📍 18:00</div>`;
+                    const time = isPerfDay ? "16:30" : "18:00";
+                    html += `<div class="event-badge gathering text-[10px] font-bold text-center">📍 ${time}</div>`;
                 }
+            }
+
+            // 4. 특별 노트 (배우 지연 등)
+            if (events.notes[day]) {
+                html += `<div class="note-badge text-center">⚠️ ${events.notes[day]}</div>`;
             }
 
             cell.innerHTML = html;
             calendarBody.appendChild(cell);
         }
 
-        // 마지막 줄 빈 칸 채우기
         const totalCells = startDay + daysInMonth;
         const extraCells = (7 - (totalCells % 7)) % 7;
         for (let i = 0; i < extraCells; i++) {
             const emptyCell = document.createElement('div');
-            emptyCell.className = 'day-cell bg-slate-50/50 border-r border-b border-slate-100';
+            emptyCell.className = 'day-cell bg-slate-50/50';
             calendarBody.appendChild(emptyCell);
         }
     </script>
