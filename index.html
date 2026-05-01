@@ -52,12 +52,12 @@
         <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
             <div>
                 <h1 class="text-xl font-bold">2026년 5월</h1>
-                <p class="text-slate-400 text-xs">팀별 공연 및 연습 통합 일정표</p>
+                <p class="text-slate-400 text-xs">토요일 시간 조정 반영</p>
             </div>
             <div class="flex flex-wrap gap-3 text-[10px] justify-end">
                 <div class="flex items-center gap-1"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> A팀</div>
                 <div class="flex items-center gap-1"><span class="w-2 h-2 bg-pink-500 rounded-full"></span> B팀</div>
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 모임시간</div>
+                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 시간</div>
             </div>
         </div>
 
@@ -78,27 +78,27 @@
         </div>
     </div>
 
-    <!-- 정보 섹션 (인쇄 시 한 장에 들어가도록 배치) -->
+    <!-- 정보 섹션 -->
     <div class="max-w-5xl mx-auto mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 info-section">
-        <!-- 공연 타임라인 -->
+        <!-- 공연 타임라인 (관객 입장 기준) -->
         <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
             <h3 class="text-blue-900 font-bold mb-2 flex items-center gap-2 text-sm">
-                <span>🗓️</span> 공연 타임라인 안내
+                <span>🗓️</span> 공연 타임라인 (입장 시간 준수)
             </h3>
             <ul class="text-[11px] text-blue-800 space-y-1 leading-tight">
                 <li class="flex justify-between font-bold border-b border-blue-200 pb-1 mb-1">
                     <span>금요일 (19:30 공연)</span>
-                    <span class="text-blue-600">16:30 모임</span>
+                    <span class="text-blue-600 underline">19:00 관객 입장</span>
                 </li>
-                <li>• 16:30: 마이크 세팅 및 사전 기술 점검</li>
-                <li>• 18:30: 티켓 오픈 및 관객 입장 시작</li>
+                <li>• 16:30~19:00: 마이크 세팅 및 기술 점검 완료</li>
+                <li>• <span class="font-bold text-red-600">19:00 정각:</span> 무대 및 대기실 정리 완료 (입장 시작)</li>
                 
                 <li class="flex justify-between font-bold border-b border-blue-200 pb-1 mb-1 mt-3">
                     <span>토요일 (17:00 공연)</span>
-                    <span class="text-blue-600">13:30/13:00 모임</span>
+                    <span class="text-blue-600 underline">16:30 관객 입장</span>
                 </li>
-                <li>• 13:00/13:30: 무대 점검 및 전체 런스루 리허설</li>
-                <li>• 16:00: 티켓 오픈 대비 완료</li>
+                <li>• 13:30~16:30: 전체 런스루 리허설 완료 (9, 16, 23, 30일)</li>
+                <li>• <span class="font-bold text-red-600">16:30 정각:</span> 무대 정리 완료 (입장 시작)</li>
             </ul>
         </div>
 
@@ -108,11 +108,11 @@
                 <span>⚠️</span> 지연 인원 대응 (9일, 23일)
             </h3>
             <div class="text-[11px] text-red-800 space-y-2 leading-tight">
-                <p class="font-bold text-red-700 underline decoration-red-200">📌 대상: 소희, 경희 역 배우 (지연 도착 예정)</p>
+                <p class="font-bold text-red-700 underline decoration-red-200">📌 대상: 석주/정혜(A) 배우 (16:00 도착)</p>
                 <ul class="space-y-1 list-disc pl-4">
-                    <li><strong>선발대 진행:</strong> 13:30 모임 후 기술 점검 및 타 배역 동선 우선 연습</li>
-                    <li><strong>스탠바이:</strong> 합류 즉시 분장 가능하도록 소품/의상 미리 세팅</li>
-                    <li><strong>최종 리허설:</strong> 합류 직후 전체 런스루 1회 필수 실시</li>
+                    <li><strong>사전 준비:</strong> 다른 팀원들이 미리 기술 점검 및 타 장면 연습을 100% 마쳐야 합니다.</li>
+                    <li><strong>30분 집중:</strong> 배우 도착(16:00) 후 관객 입장(16:30) 전까지 최종 음향/동선만 신속히 체크합니다.</li>
+                    <li><strong>입장 후:</strong> 관객 입장 후에는 무대 사용이 불가하므로 대기실에서 최종 준비에 집중합니다.</li>
                 </ul>
             </div>
         </div>
@@ -130,13 +130,11 @@
             perfB: [2, 8, 16, 22, 30],
             specialTimes: {
                 1: "14:00", 
-                2: "13:00",
-                16: "13:00", 
-                30: "13:00"  
+                2: "13:00"  // 2일만 13:00 유지
             },
             notes: {
-                9: "소희/경희 지연",
-                23: "소희/경희 지연"
+                9: "석주/정혜 16시 도착",
+                23: "석주/정혜 16시 도착"
             }
         };
 
@@ -197,6 +195,7 @@
                 html += `<div class="event-badge gathering font-bold text-center">📍 ${events.specialTimes[day]}</div>`;
             } else {
                 if (dayOfWeek === 6) {
+                    // 모든 토요일(특수시간 제외) 13:30으로 표시
                     html += `<div class="event-badge gathering font-bold text-center">📍 13:30</div>`;
                 }
                 if (dayOfWeek === 5 && day !== 1) {
