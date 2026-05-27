@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026년 5월 팀 일정표</title>
+    <title>2026년 6월 팀 일정표</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -17,7 +17,7 @@
 
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
         .day-cell { 
-            min-height: 110px; 
+            min-height: 115px; 
             transition: all 0.2s; 
             border-right: 1px solid #e2e8f0; 
             border-bottom: 1px solid #e2e8f0; 
@@ -29,13 +29,13 @@
         .team-a { background-color: #dbeafe !important; color: #1e40af !important; border-left: 3px solid #3b82f6 !important; }
         .team-b { background-color: #fce7f3 !important; color: #9d174d !important; border-left: 3px solid #ec4899 !important; }
         .gathering { background-color: #fef9c3 !important; color: #854d0e !important; border-left: 3px solid #eab308 !important; }
+        .party-badge { background-color: #d1fae5 !important; color: #065f46 !important; border-left: 3px solid #10b981 !important; font-weight: 700; }
         .note-badge { background-color: #fee2e2 !important; color: #991b1b !important; font-size: 0.6rem; padding: 1px 3px; border-radius: 3px; font-weight: 600; }
 
-        /* 인쇄 전용 스타일 */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 1cm;
+                margin: 0.8cm;
             }
             body { background-color: white; padding: 0; }
             .max-w-5xl { max-width: 100% !important; width: 100% !important; margin: 0 !important; box-shadow: none !important; border: 1px solid #e2e8f0; }
@@ -46,22 +46,21 @@
     </style>
 </head>
 <body class="p-4 md:p-6">
-    <!-- Main Calendar Container -->
     <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
         <!-- Header -->
         <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-bold">2026년 5월</h1>
-                <p class="text-slate-400 text-xs">토요일 시간 조정 반영</p>
+                <h1 class="text-xl font-bold">2026년 6월</h1>
+                <p class="text-slate-400 text-xs">최종 공연 및 쫑파티 일정 반영 (석주/정혜 지연 반영)</p>
             </div>
             <div class="flex flex-wrap gap-3 text-[10px] justify-end">
                 <div class="flex items-center gap-1"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> A팀</div>
                 <div class="flex items-center gap-1"><span class="w-2 h-2 bg-pink-500 rounded-full"></span> B팀</div>
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 시간</div>
+                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 쫑파티</div>
+                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 모임시간</div>
             </div>
         </div>
 
-        <!-- Days of Week -->
         <div class="calendar-grid bg-slate-50 border-b border-slate-200">
             <div class="p-2 text-center text-xs font-bold text-rose-500">일</div>
             <div class="p-2 text-center text-xs font-bold text-slate-600">월</div>
@@ -78,7 +77,6 @@
         </div>
     </div>
 
-    <!-- 정보 섹션 -->
     <div class="max-w-5xl mx-auto mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 info-section">
         <!-- 공연 타임라인 (관객 입장 기준) -->
         <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
@@ -97,23 +95,37 @@
                     <span>토요일 (17:00 공연)</span>
                     <span class="text-blue-600 underline">16:30 관객 입장</span>
                 </li>
-                <li>• 13:30~16:30: 전체 런스루 리허설 완료 (9, 16, 23, 30일)</li>
+                <li>• 13:30~16:30: 전체 런스루 리허설 완료 (6, 13, 20일)</li>
                 <li>• <span class="font-bold text-red-600">16:30 정각:</span> 무대 정리 완료 (입장 시작)</li>
             </ul>
         </div>
 
-        <!-- 지연 인원 대응 가이드 -->
-        <div class="p-4 bg-red-50 rounded-xl border border-red-100">
-            <h3 class="text-red-900 font-bold mb-2 flex items-center gap-2 text-sm">
-                <span>⚠️</span> 지연 인원 대응 (9일, 23일)
-            </h3>
-            <div class="text-[11px] text-red-800 space-y-2 leading-tight">
-                <p class="font-bold text-red-700 underline decoration-red-200">📌 대상: 석주/정혜(A) 배우 (16:00 도착)</p>
-                <ul class="space-y-1 list-disc pl-4">
-                    <li><strong>사전 준비:</strong> 다른 팀원들이 미리 기술 점검 및 타 장면 연습을 100% 마쳐야 합니다.</li>
-                    <li><strong>30분 집중:</strong> 배우 도착(16:00) 후 관객 입장(16:30) 전까지 최종 음향/동선만 신속히 체크합니다.</li>
-                    <li><strong>입장 후:</strong> 관객 입장 후에는 무대 사용이 불가하므로 대기실에서 최종 준비에 집중합니다.</li>
-                </ul>
+        <!-- 극장 운영 수칙 및 쫑파티 지침 -->
+        <div class="grid grid-cols-1 gap-4">
+            <!-- 지연 인원 대응 가이드 (석주/정혜 적용) -->
+            <div class="p-4 bg-red-50 rounded-xl border border-red-100">
+                <h3 class="text-red-900 font-bold mb-2 flex items-center gap-2 text-sm">
+                    <span>⚠️</span> 지연 인원 대응 (6일, 20일)
+                </h3>
+                <div class="text-[11px] text-red-800 space-y-1.5 leading-tight">
+                    <p class="font-bold text-red-700 underline decoration-red-200">📌 대상: 석주/정혜(A) 배우 (16:00 도착)</p>
+                    <ul class="space-y-0.5 list-disc pl-4">
+                        <li><strong>사전 준비:</strong> 다른 팀원들이 미리 기술 점검 및 타 장면 연습을 100% 마쳐야 합니다.</li>
+                        <li><strong>30분 집중:</strong> 배우 도착(16:00) 후 관객 입장(16:30) 전까지 최종 음향/동선만 신속히 체크합니다.</li>
+                        <li><strong>입장 후:</strong> 관객 입장 후에는 대기실에서 최종 준비에 집중합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                <h3 class="text-emerald-900 font-bold mb-1 flex items-center gap-2 text-sm">
+                    <span>🎉</span> 6월 20일~21일 쫑파티 가이드
+                </h3>
+                <div class="text-[11px] text-emerald-800 space-y-1 leading-tight">
+                    <p><strong>6월 20일(토):</strong> 마지막 공연(A팀) 및 극장 철수 직후 쫑파티 시작</p>
+                    <p><strong>6월 21일(일):</strong> 연속되는 쫑파티 2일차 및 뒷풀이 예정</p>
+                    <p class="font-bold text-emerald-900 underline decoration-emerald-300">• 6월 20일 공연을 끝으로 모든 공식 연습 및 공연 일정이 종료됩니다.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -126,22 +138,25 @@
 
     <script>
         const events = {
-            perfA: [1, 9, 15, 23, 29],
-            perfB: [2, 8, 16, 22, 30],
+            perfA: [6, 12, 20],
+            perfB: [5, 13, 19],
             specialTimes: {
-                1: "14:00", 
-                2: "13:00"  // 2일만 13:00 유지
+                // 수동 적용 특수 모임 시간은 현재 없습니다.
             },
             notes: {
-                9: "석주/정혜 16시 도착",
-                23: "석주/정혜 16시 도착"
-            }
+                6: "석주/정혜 16시 도착",
+                20: "석주/정혜 16시 도착"
+            },
+            parties: [20, 21] // 쫑파티 일자
         };
 
         const calendarBody = document.getElementById('calendar-body');
-        const startDay = 5; 
-        const daysInMonth = 31;
+        
+        // 2026년 6월 1일은 월요일 (월요일=1칸 공백 필요)
+        const startDay = 1; 
+        const daysInMonth = 30;
 
+        // 이전 달 빈 칸 채우기
         for (let i = 0; i < startDay; i++) {
             const emptyCell = document.createElement('div');
             emptyCell.className = 'day-cell bg-slate-50/30';
@@ -149,7 +164,7 @@
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(2026, 4, day);
+            const date = new Date(2026, 5, day); // June is index 5
             const dayOfWeek = date.getDay();
             const cell = document.createElement('div');
             
@@ -161,50 +176,58 @@
             
             let html = `<span class="font-bold text-xs ${dayColorClass}">${day}</span>`;
             
-            // 1. 공연 일정
-            const isPerfDay = events.perfA.includes(day) || events.perfB.includes(day);
-            if (events.perfA.includes(day)) {
-                const time = (dayOfWeek === 5) ? "19:30" : "17:00";
-                html += `<div class="event-badge team-a font-bold">A팀 (${time})</div>`;
-            }
-            if (events.perfB.includes(day)) {
-                const time = (dayOfWeek === 5) ? "19:30" : "17:00";
-                html += `<div class="event-badge team-b font-bold">B팀 (${time})</div>`;
-            }
+            // 20일까지만 정규 일정(공연/연습/정기모임) 생성
+            if (day <= 20) {
+                // 1. 공연 일정
+                const isPerfDay = events.perfA.includes(day) || events.perfB.includes(day);
+                if (events.perfA.includes(day)) {
+                    const time = (dayOfWeek === 5) ? "19:30" : "17:00";
+                    html += `<div class="event-badge team-a font-bold">A팀 (${time})</div>`;
+                }
+                if (events.perfB.includes(day)) {
+                    const time = (dayOfWeek === 5) ? "19:30" : "17:00";
+                    html += `<div class="event-badge team-b font-bold">B팀 (${time})</div>`;
+                }
 
-            // 2. 연습 일정
-            if (dayOfWeek === 3) {
-                const fridayDate = day + 2;
-                if (events.perfB.includes(fridayDate)) {
-                    html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
+                // 2. 연습 일정 (수/목 교차 스왑 알고리즘)
+                if (dayOfWeek === 3) {
+                    const fridayDate = day + 2;
+                    if (events.perfB.includes(fridayDate)) {
+                        html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
+                    } else {
+                        html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
+                    }
+                }
+                if (dayOfWeek === 4) {
+                    const nextDay = day + 1;
+                    if (events.perfB.includes(nextDay)) {
+                        html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
+                    } else {
+                        html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
+                    }
+                }
+
+                // 3. 정기 모임 시간 안내
+                if (events.specialTimes[day]) {
+                    html += `<div class="event-badge gathering font-bold text-center">📍 ${events.specialTimes[day]}</div>`;
                 } else {
-                    html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
-                }
-            }
-            if (dayOfWeek === 4) {
-                const nextDay = day + 1;
-                if (events.perfB.includes(nextDay)) {
-                    html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
-                } else {
-                    html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
-                }
-            }
-
-            // 3. 모임 시간 안내
-            if (events.specialTimes[day]) {
-                html += `<div class="event-badge gathering font-bold text-center">📍 ${events.specialTimes[day]}</div>`;
-            } else {
-                if (dayOfWeek === 6) {
-                    // 모든 토요일(특수시간 제외) 13:30으로 표시
-                    html += `<div class="event-badge gathering font-bold text-center">📍 13:30</div>`;
-                }
-                if (dayOfWeek === 5 && day !== 1) {
-                    const time = isPerfDay ? "16:30" : "18:00";
-                    html += `<div class="event-badge gathering font-bold text-center">📍 ${time}</div>`;
+                    if (dayOfWeek === 6) {
+                        html += `<div class="event-badge gathering font-bold text-center">📍 13:30</div>`;
+                    }
+                    if (dayOfWeek === 5) {
+                        const time = isPerfDay ? "16:30" : "18:00";
+                        html += `<div class="event-badge gathering font-bold text-center">📍 ${time}</div>`;
+                    }
                 }
             }
 
-            // 4. 특별 노트 (배우 지연)
+            // 4. 쫑파티 일정 표시 (20일, 21일)
+            if (events.parties.includes(day)) {
+                const label = (day === 20) ? "🍻 쫑파티 시작!" : "🍻 쫑파티 (2일차)";
+                html += `<div class="event-badge party-badge text-center">${label}</div>`;
+            }
+
+            // 5. 특별 노트 표시 (배우 지연)
             if (events.notes[day]) {
                 html += `<div class="note-badge text-center">⚠️ ${events.notes[day]}</div>`;
             }
