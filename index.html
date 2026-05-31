@@ -141,10 +141,12 @@
             perfA: [6, 12, 20],
             perfB: [5, 13, 19],
             specialTimes: {
-                // 수동 적용 특수 모임 시간은 현재 없습니다.
+                13: "12:00" // 13일은 12시부터 리허설 및 연습 시작
             },
             notes: {
                 6: "석주/정혜 16시 도착",
+                10: "은주 불참 (석주가 소희 대체)",
+                13: "12시부터 연습",
                 20: "석주/정혜 16시 도착"
             },
             parties: [20, 21] // 쫑파티 일자
@@ -223,7 +225,7 @@
 
             // 4. 쫑파티 일정 표시 (20일, 21일)
             if (events.parties.includes(day)) {
-                const label = (day === 20) ? "🍻 쫑파티 시작!" : "🍻 쫑파티 (2일차)";
+                const label = (day === 20) ? "쫑파티(1)" : "쫑파티 (2)";
                 html += `<div class="event-badge party-badge text-center">${label}</div>`;
             }
 
