@@ -3,248 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026년 6월 팀 일정표</title>
+    <title>연극 다녀왔습니다 공연 안내</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f8fafc; 
-            -webkit-print-color-adjust: exact; 
-            print-color-adjust: exact;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
         }
-
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
-        .day-cell { 
-            min-height: 115px; 
-            transition: all 0.2s; 
-            border-right: 1px solid #e2e8f0; 
-            border-bottom: 1px solid #e2e8f0; 
+        .schedule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
-        
-        .event-badge { font-size: 0.65rem; padding: 2px 4px; border-radius: 4px; margin-bottom: 1px; line-height: 1.2; }
-        
-        /* 팀별 색상 통일 */
-        .team-a { background-color: #dbeafe !important; color: #1e40af !important; border-left: 3px solid #3b82f6 !important; }
-        .team-b { background-color: #fce7f3 !important; color: #9d174d !important; border-left: 3px solid #ec4899 !important; }
-        .gathering { background-color: #fef9c3 !important; color: #854d0e !important; border-left: 3px solid #eab308 !important; }
-        .party-badge { background-color: #d1fae5 !important; color: #065f46 !important; border-left: 3px solid #10b981 !important; font-weight: 700; }
-        .note-badge { background-color: #fee2e2 !important; color: #991b1b !important; font-size: 0.6rem; padding: 1px 3px; border-radius: 3px; font-weight: 600; }
-
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0.8cm;
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: #f3f4f6 !important;
             }
-            body { background-color: white; padding: 0; }
-            .max-w-5xl { max-width: 100% !important; width: 100% !important; margin: 0 !important; box-shadow: none !important; border: 1px solid #e2e8f0; }
-            .day-cell { min-height: 90px !important; }
-            .no-print { display: none; }
-            .info-section { page-break-inside: avoid; }
+            .no-print {
+                display: none !important;
+            }
+            .schedule-card, .bg-white.rounded-2xl {
+                break-inside: avoid;
+            }
+            @page {
+                margin: 1cm;
+            }
         }
     </style>
 </head>
-<body class="p-4 md:p-6">
-    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-        <!-- Header -->
-        <div class="bg-slate-900 p-5 text-white flex justify-between items-center">
-            <div>
-                <h1 class="text-xl font-bold">2026년 6월</h1>
-                <p class="text-slate-400 text-xs">최종 공연 및 쫑파티 일정 반영 (석주/정혜 지연 반영)</p>
+<body class="text-gray-800">
+
+<!-- PDF Print Button -->
+<div class="fixed bottom-8 right-8 no-print z-50">
+    <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg flex items-center transition-transform hover:scale-105">
+        <i class="fas fa-file-pdf mr-2 text-xl"></i>
+        PDF로 저장
+    </button>
+</div>
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl shadow-lg p-8 mb-10 text-white relative overflow-hidden bg-pattern">
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <span class="inline-block px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm font-semibold mb-3 tracking-wider">
+                    <i class="fas fa-masks-theater mr-2"></i>THEATER PLAY
+                </span>
+                <h1 class="text-4xl md:text-5xl font-black mb-2">다녀왔습니다</h1>
+                <p class="text-indigo-100 text-lg flex items-center justify-center md:justify-start mt-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i> 서울 성북오름 소극장
+                </p>
+                <p class="text-indigo-100 text-lg flex items-center justify-center md:justify-start mt-2">
+                    <i class="far fa-calendar-check mr-2"></i> 7월 7일(화) ~ 7월 12일(일)
+                </p>
             </div>
-            <div class="flex flex-wrap gap-3 text-[10px] justify-end">
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> A팀</div>
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-pink-500 rounded-full"></span> B팀</div>
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 쫑파티</div>
-                <div class="flex items-center gap-1"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span> 모임시간</div>
+            <div class="bg-white rounded-xl p-4 text-center shadow-md">
+                <p class="text-sm text-gray-500 font-bold mb-1">공연 시간</p>
+                <div class="flex items-center space-x-4">
+                    <div class="text-indigo-700">
+                        <span class="block font-black text-xl">20:00</span>
+                        <span class="text-xs">평일 (화~금)</span>
+                    </div>
+                    <div class="h-10 w-px bg-gray-300"></div>
+                    <div class="text-purple-700">
+                        <span class="block font-black text-xl">16:00</span>
+                        <span class="text-xs">주말 (토,일)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <i class="fas fa-ticket-alt absolute -bottom-10 -right-10 text-9xl text-white opacity-10 transform rotate-12"></i>
+    </header>
+
+    <!-- Casting Schedule Title -->
+    <div class="flex items-center mb-6">
+        <div class="bg-indigo-100 p-3 rounded-full mr-4 text-indigo-600">
+            <i class="fas fa-calendar-alt text-2xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">일자별 캐스팅 및 스태프</h2>
+    </div>
+
+    <!-- Schedule Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        
+        <!-- Tuesday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-xl font-bold text-indigo-700">7/7 <span class="text-sm text-gray-500 font-normal">화요일</span></h3>
+                <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-bold">20:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">아빠</span> 최민준</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">작가</span> 김태우</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">경희</span> 구예지</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">성희</span> 정윤희</p>
+                <div class="mt-3 pt-3 border-t border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, 하정혜</p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> 김한솔</p>
+                </div>
             </div>
         </div>
 
-        <div class="calendar-grid bg-slate-50 border-b border-slate-200">
-            <div class="p-2 text-center text-xs font-bold text-rose-500">일</div>
-            <div class="p-2 text-center text-xs font-bold text-slate-600">월</div>
-            <div class="p-2 text-center text-xs font-bold text-slate-600">화</div>
-            <div class="p-2 text-center text-xs font-bold text-slate-600">수</div>
-            <div class="p-2 text-center text-xs font-bold text-slate-600">목</div>
-            <div class="p-2 text-center text-xs font-bold text-slate-600">금</div>
-            <div class="p-2 text-center text-xs font-bold text-blue-500">토</div>
+        <!-- Wednesday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-xl font-bold text-indigo-700">7/8 <span class="text-sm text-gray-500 font-normal">수요일</span></h3>
+                <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-bold">20:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">아빠</span> 최민준</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">작가</span> 김태우</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">경희</span> 구예지</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">성희</span> 정윤희</p>
+                <div class="mt-3 pt-3 border-t border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, 하정혜</p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> <span class="text-red-400">(미정)</span></p>
+                </div>
+            </div>
         </div>
 
-        <!-- Calendar Body -->
-        <div id="calendar-body" class="calendar-grid">
-            <!-- JS will inject days here -->
+        <!-- Thursday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-xl font-bold text-indigo-700">7/9 <span class="text-sm text-gray-500 font-normal">목요일</span></h3>
+                <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-bold">20:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12 text-blue-600">아빠</span> <span class="text-blue-600 font-bold">조용건</span></p>
+                <p><span class="font-bold text-gray-600 inline-block w-12 text-blue-600">작가</span> <span class="text-blue-600 font-bold">최민준</span></p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">경희</span> 구예지</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">성희</span> 정윤희</p>
+                <div class="mt-3 pt-3 border-t border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, 하정혜</p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> <span class="font-bold text-gray-700">주수정</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Friday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-xl font-bold text-indigo-700">7/10 <span class="text-sm text-gray-500 font-normal">금요일</span></h3>
+                <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-bold">20:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">아빠</span> 조용건</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">작가</span> 최민준</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12 text-blue-600">경희</span> <span class="text-blue-600 font-bold">하정혜</span></p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">성희</span> 정윤희</p>
+                <div class="mt-3 pt-3 border-t border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, <span class="text-blue-500 font-bold">구예지</span></p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> 주수정</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden bg-purple-50">
+            <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b border-purple-100 pb-3">
+                <h3 class="text-xl font-bold text-purple-700">7/11 <span class="text-sm text-gray-500 font-normal">토요일</span></h3>
+                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded font-bold">16:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">아빠</span> 조용건</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">작가</span> 최민준</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">경희</span> 하정혜</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12 text-blue-600">성희</span> <span class="text-blue-600 font-bold">손보영</span></p>
+                <div class="mt-3 pt-3 border-t border-purple-100 border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, <span class="text-blue-500 font-bold">김태우</span></p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> 주수정</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sunday -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 schedule-card relative overflow-hidden bg-purple-50">
+            <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+            <div class="flex justify-between items-center mb-4 border-b border-purple-100 pb-3">
+                <h3 class="text-xl font-bold text-purple-700">7/12 <span class="text-sm text-gray-500 font-normal">일요일</span></h3>
+                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded font-bold">16:00</span>
+            </div>
+            <div class="space-y-2 text-sm">
+                <p><span class="font-bold text-gray-600 inline-block w-12">엄마</span> 김희정</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">아빠</span> 조용건</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12 text-blue-600">작가</span> <span class="text-blue-600 font-bold">김태우</span></p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">소희</span> 지석주</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">경희</span> 하정혜</p>
+                <p><span class="font-bold text-gray-600 inline-block w-12">성희</span> 손보영</p>
+                <div class="mt-3 pt-3 border-t border-purple-100 border-dashed text-gray-500 text-xs">
+                    <p><i class="fas fa-volume-up mr-1"></i> 주성환, <span class="text-blue-500 font-bold">최민준</span></p>
+                    <p class="mt-1"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i> 주수정</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="max-w-5xl mx-auto mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 info-section">
-        <!-- 공연 타임라인 (관객 입장 기준) -->
-        <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
-            <h3 class="text-blue-900 font-bold mb-2 flex items-center gap-2 text-sm">
-                <span>🗓️</span> 공연 타임라인 (입장 시간 준수)
-            </h3>
-            <ul class="text-[11px] text-blue-800 space-y-1 leading-tight">
-                <li class="flex justify-between font-bold border-b border-blue-200 pb-1 mb-1">
-                    <span>금요일 (19:30 공연)</span>
-                    <span class="text-blue-600 underline">19:00 관객 입장</span>
-                </li>
-                <li>• 16:30~19:00: 마이크 세팅 및 기술 점검 완료</li>
-                <li>• <span class="font-bold text-red-600">19:00 정각:</span> 무대 및 대기실 정리 완료 (입장 시작)</li>
-                
-                <li class="flex justify-between font-bold border-b border-blue-200 pb-1 mb-1 mt-3">
-                    <span>토요일 (17:00 공연)</span>
-                    <span class="text-blue-600 underline">16:30 관객 입장</span>
-                </li>
-                <li>• 13:30~16:30: 전체 런스루 리허설 완료 (6, 13, 20일)</li>
-                <li>• <span class="font-bold text-red-600">16:30 정각:</span> 무대 정리 완료 (입장 시작)</li>
-            </ul>
+    <!-- Transport Section Title -->
+    <div class="flex items-center mb-6">
+        <div class="bg-green-100 p-3 rounded-full mr-4 text-green-600">
+            <i class="fas fa-car-side text-2xl"></i>
         </div>
+        <h2 class="text-2xl font-bold text-gray-800">팀원 이동 일정</h2>
+    </div>
 
-        <!-- 극장 운영 수칙 및 쫑파티 지침 -->
-        <div class="grid grid-cols-1 gap-4">
-            <!-- 지연 인원 대응 가이드 (석주/정혜 적용) -->
-            <div class="p-4 bg-red-50 rounded-xl border border-red-100">
-                <h3 class="text-red-900 font-bold mb-2 flex items-center gap-2 text-sm">
-                    <span>⚠️</span> 지연 인원 대응 (6일, 20일)
-                </h3>
-                <div class="text-[11px] text-red-800 space-y-1.5 leading-tight">
-                    <p class="font-bold text-red-700 underline decoration-red-200">📌 대상: 석주/정혜(A) 배우 (16:00 도착)</p>
-                    <ul class="space-y-0.5 list-disc pl-4">
-                        <li><strong>사전 준비:</strong> 다른 팀원들이 미리 기술 점검 및 타 장면 연습을 100% 마쳐야 합니다.</li>
-                        <li><strong>30분 집중:</strong> 배우 도착(16:00) 후 관객 입장(16:30) 전까지 최종 음향/동선만 신속히 체크합니다.</li>
-                        <li><strong>입장 후:</strong> 관객 입장 후에는 대기실에서 최종 준비에 집중합니다.</li>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Upward (to Seoul) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-green-50 px-6 py-4 border-b border-green-100 flex items-center">
+                <i class="fas fa-arrow-up text-green-600 mr-2 text-xl"></i>
+                <h3 class="text-lg font-bold text-green-800">서울로 갈 때 (상경)</h3>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- Group 1 -->
+                <div>
+                    <h4 class="text-sm font-bold text-gray-500 uppercase mb-2 flex items-center"><i class="fas fa-calendar-day mr-2 text-green-500"></i>일요일 출발 (마산 → 차량)</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm"><span class="bg-gray-100 px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3">종원 차량</span> 연지</li>
+                        <li class="flex items-center text-sm flex-wrap gap-y-2">
+                            <span class="bg-gray-100 px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3 flex-shrink-0">성환 차량</span> 
+                            <span class="mr-2">윤희, 태우, 예지</span>
+                            <span class="text-xs text-red-600 bg-red-50 px-2 py-0.5 rounded-full border border-red-200 font-bold flex items-center shadow-sm">
+                                <i class="far fa-clock mr-1"></i>특이사항: 오후 4시 출발
+                            </span>
+                        </li>
+                        <li class="flex items-center text-sm"><span class="bg-gray-100 px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3">희정 차량</span> 석주, 정혜, 경률</li>
+                    </ul>
+                </div>
+                <!-- Group 2 -->
+                <div>
+                    <h4 class="text-sm font-bold text-gray-500 uppercase mb-2 flex items-center"><i class="fas fa-train mr-2 text-green-500"></i>KTX & 개별 출발</h4>
+                    <ul class="space-y-3">
+                        <li class="text-sm flex flex-col">
+                            <span class="font-bold text-gray-700">목요일 오전 (KTX)</span>
+                            <span class="text-gray-600 mt-1 pl-4 border-l-2 border-green-200">수정, 용건</span>
+                        </li>
+                        <li class="text-sm flex flex-col">
+                            <span class="font-bold text-gray-700">토요일 오전 (KTX)</span>
+                            <span class="text-gray-600 mt-1 pl-4 border-l-2 border-green-200">
+                                <strong>보영</strong> <br>
+                                <span class="text-xs text-gray-500">(마산 06:35 → 서울 09:52 / 3시간 17분 소요)</span>
+                            </span>
+                        </li>
+                        <li class="text-sm flex flex-col">
+                            <span class="font-bold text-gray-700">경주 출발</span>
+                            <span class="text-gray-600 mt-1 pl-4 border-l-2 border-green-200">김한솔, 최민준</span>
+                        </li>
                     </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                <h3 class="text-emerald-900 font-bold mb-1 flex items-center gap-2 text-sm">
-                    <span>🎉</span> 6월 20일~21일 쫑파티 가이드
-                </h3>
-                <div class="text-[11px] text-emerald-800 space-y-1 leading-tight">
-                    <p><strong>6월 20일(토):</strong> 마지막 공연(A팀) 및 극장 철수 직후 쫑파티 시작</p>
-                    <p><strong>6월 21일(일):</strong> 연속되는 쫑파티 2일차 및 뒷풀이 예정</p>
-                    <p class="font-bold text-emerald-900 underline decoration-emerald-300">• 6월 20일 공연을 끝으로 모든 공식 연습 및 공연 일정이 종료됩니다.</p>
+        <!-- Downward (to Masan) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-orange-50 px-6 py-4 border-b border-orange-100 flex items-center">
+                <i class="fas fa-arrow-down text-orange-600 mr-2 text-xl"></i>
+                <h3 class="text-lg font-bold text-orange-800">마산으로 올 때 (하행)</h3>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- Timeline -->
+                <div class="relative pl-6 border-l-2 border-orange-200 space-y-6">
+                    
+                    <div class="relative">
+                        <div class="absolute -left-8 bg-white border-2 border-orange-400 w-4 h-4 rounded-full mt-1"></div>
+                        <h4 class="text-sm font-bold text-orange-600 mb-1">토요일 오전</h4>
+                        <p class="text-sm text-gray-700"><i class="fas fa-train text-gray-400 mr-1"></i> <span class="font-bold">예지</span> (KTX)</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-8 bg-white border-2 border-orange-400 w-4 h-4 rounded-full mt-1"></div>
+                        <h4 class="text-sm font-bold text-orange-600 mb-1">일요일 저녁 (공연 종료 후)</h4>
+                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                            <p class="text-sm flex items-center"><span class="bg-white border px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3 shadow-sm">성환 차량</span> <span class="text-gray-700">수정, 용건, 태우, 보영</span></p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-8 bg-white border-2 border-orange-400 w-4 h-4 rounded-full mt-1"></div>
+                        <h4 class="text-sm font-bold text-orange-600 mb-1">월요일 (뒷정리 후)</h4>
+                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 space-y-2">
+                            <p class="text-sm flex items-center"><span class="bg-white border px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3 shadow-sm">종원 차량</span> <span class="text-gray-700">연지, 윤희</span></p>
+                            <p class="text-sm flex items-center"><span class="bg-white border px-2 py-1 rounded text-gray-600 font-bold w-20 text-center mr-3 shadow-sm">희정 차량</span> <span class="text-gray-700">석주, 정혜, 경률</span></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
     </div>
 
-    <div class="no-print mt-6 text-center">
-        <button onclick="window.print()" class="bg-slate-800 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-slate-700 transition shadow-lg">
-            🖨️ 달력 인쇄하기
-        </button>
+    <!-- Footer Note -->
+    <div class="mt-8 text-center text-sm text-gray-400 pb-8">
+        <p>변동된 인원(파란색 표시)을 잘 확인해 주세요. 안전한 이동 되시길 바랍니다!</p>
     </div>
 
-    <script>
-        const events = {
-            perfA: [6, 12, 20],
-            perfB: [5, 13, 19],
-            specialTimes: {
-                13: "12:00" // 13일은 12시부터 리허설 및 연습 시작
-            },
-            notes: {
-                6: "석주/정혜 16시 도착",
-                10: "은주 불참 (석주가 소희 대체)",
-                13: "12시부터 연습",
-                20: "석주/정혜 16시 도착"
-            },
-            parties: [20, 21] // 쫑파티 일자
-        };
+</div>
 
-        const calendarBody = document.getElementById('calendar-body');
-        
-        // 2026년 6월 1일은 월요일 (월요일=1칸 공백 필요)
-        const startDay = 1; 
-        const daysInMonth = 30;
-
-        // 이전 달 빈 칸 채우기
-        for (let i = 0; i < startDay; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'day-cell bg-slate-50/30';
-            calendarBody.appendChild(emptyCell);
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(2026, 5, day); // June is index 5
-            const dayOfWeek = date.getDay();
-            const cell = document.createElement('div');
-            
-            let dayColorClass = "text-slate-700";
-            if (dayOfWeek === 0) dayColorClass = "text-rose-500";
-            if (dayOfWeek === 6) dayColorClass = "text-blue-500";
-
-            cell.className = `day-cell p-1.5 flex flex-col gap-0.5`;
-            
-            let html = `<span class="font-bold text-xs ${dayColorClass}">${day}</span>`;
-            
-            // 20일까지만 정규 일정(공연/연습/정기모임) 생성
-            if (day <= 20) {
-                // 1. 공연 일정
-                const isPerfDay = events.perfA.includes(day) || events.perfB.includes(day);
-                if (events.perfA.includes(day)) {
-                    const time = (dayOfWeek === 5) ? "19:30" : "17:00";
-                    html += `<div class="event-badge team-a font-bold">A팀 (${time})</div>`;
-                }
-                if (events.perfB.includes(day)) {
-                    const time = (dayOfWeek === 5) ? "19:30" : "17:00";
-                    html += `<div class="event-badge team-b font-bold">B팀 (${time})</div>`;
-                }
-
-                // 2. 연습 일정 (수/목 교차 스왑 알고리즘)
-                if (dayOfWeek === 3) {
-                    const fridayDate = day + 2;
-                    if (events.perfB.includes(fridayDate)) {
-                        html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
-                    } else {
-                        html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
-                    }
-                }
-                if (dayOfWeek === 4) {
-                    const nextDay = day + 1;
-                    if (events.perfB.includes(nextDay)) {
-                        html += `<div class="event-badge team-b opacity-80 italic">B팀 연습(18:00)</div>`;
-                    } else {
-                        html += `<div class="event-badge team-a opacity-80 italic">A팀 연습(18:00)</div>`;
-                    }
-                }
-
-                // 3. 정기 모임 시간 안내
-                if (events.specialTimes[day]) {
-                    html += `<div class="event-badge gathering font-bold text-center">📍 ${events.specialTimes[day]}</div>`;
-                } else {
-                    if (dayOfWeek === 6) {
-                        html += `<div class="event-badge gathering font-bold text-center">📍 13:30</div>`;
-                    }
-                    if (dayOfWeek === 5) {
-                        const time = isPerfDay ? "16:30" : "18:00";
-                        html += `<div class="event-badge gathering font-bold text-center">📍 ${time}</div>`;
-                    }
-                }
-            }
-
-            // 4. 쫑파티 일정 표시 (20일, 21일)
-            if (events.parties.includes(day)) {
-                const label = (day === 20) ? "쫑파티(1)" : "쫑파티 (2)";
-                html += `<div class="event-badge party-badge text-center">${label}</div>`;
-            }
-
-            // 5. 특별 노트 표시 (배우 지연)
-            if (events.notes[day]) {
-                html += `<div class="note-badge text-center">⚠️ ${events.notes[day]}</div>`;
-            }
-
-            cell.innerHTML = html;
-            calendarBody.appendChild(cell);
-        }
-
-        const totalCells = startDay + daysInMonth;
-        const extraCells = (7 - (totalCells % 7)) % 7;
-        for (let i = 0; i < extraCells; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'day-cell bg-slate-50/30';
-            calendarBody.appendChild(emptyCell);
-        }
-    </script>
 </body>
 </html>
